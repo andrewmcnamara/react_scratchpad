@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Example</title>
+    <meta name="description" content="A React example made with HyperDev">
+    <link id="favicon" rel="icon" href="https://hyperweb.space/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+
+    <div id="app"></div>
+
+    <!--<script src="https://fb.me/react-15.1.0.js"></script>-->
+    <!--<script src="https://fb.me/react-dom-15.0.1.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>    -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.5.2/redux.min.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.5/redux.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.0.6/react-redux.js"></script>
+   <script type="text/babel" src="/app.jsx"> </script>
+    
+
+    <script>
+      // Get all the babel scripts
+      var babel_scripts = document.querySelectorAll('script[type="text/babel"]');
+      // Loop over them
+      babel_scripts.forEach(function (script, index, arr) {
+        var request = new XMLHttpRequest();
+
+        request.onload = function() { transformIt(request.responseText) };
+        request.open('GET',script.src , true);
+        request.send(null);
+      });
+      
+       function transformIt(text){
+         console.log(text);
+        var output = Babel.transform( text, { presets: ['es2015', 'stage-0', 'react'] }).code;
+ 
+        // Create a new script tag of `javascript` type
+        var new_script = document.createElement('script');
+        new_script.setAttribute('type', 'text/javascript');
+        // Set the contents of the script to the transpiled code
+        new_script.textContent = output;
+ 
+        // Remove the babel script
+        // script.remove();
+        // Inject the new transpiled JS
+        document.querySelector('body').appendChild(new_script);
+       }
+      
+    </script>
+    <!--<script src="/app.jsx"></script>-->
+      <!--<script type="text/babel" src="/app.jsx"></script>-->
+  </body>
+</html>
